@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Les Perles de Véro - Bijoux fantaisie en perles pour femmes. Bracelets, colliers et ensembles élégants. Commandez sur WhatsApp.">
+    <title>Les Perles de Véro - Bijoux en Perles Fantaisie</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Sticky -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Les Perles de Véro</h1>
+                </div>
+                <nav class="nav" aria-label="Navigation principale">
+                    <ul class="nav-list">
+                        <li><a href="#accueil" class="nav-link">Accueil</a></li>
+                        <li><a href="#produits" class="nav-link">Produits</a></li>
+                        <li><a href="#apropos" class="nav-link">À propos</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                    <button class="menu-toggle" aria-label="Menu mobile" aria-expanded="false">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="hero-title">Les Perles de Véro</h2>
+                <p class="hero-subtitle">Des bijoux en perles faits avec amour, pour sublimer chaque femme</p>
+                
+                <!-- Section À propos intégrée dans le Hero -->
+                <div class="hero-about">
+                    <h3 class="hero-about-title">🌸 Une passion devenue élégance</h3>
+                    <p class="hero-about-intro">
+                        Les Perles de Véro est une boutique dédiée aux femmes qui aiment les bijoux délicats, raffinés et accessibles.
+                    </p>
+                    <p class="hero-about-text">
+                        Chaque création est pensée avec soin, inspirée par la féminité, la simplicité et l'amour du détail.
+                    </p>
+                    <p class="hero-about-uses-title">Nos bijoux en perles sont idéals pour :</p>
+                    <ul class="hero-about-uses-list">
+                        <li>✨ Le quotidien</li>
+                        <li>✨ Les sorties</li>
+                        <li>✨ Les cadeaux spéciaux</li>
+                    </ul>
+                </div>
+                
+                <a href="#produits" class="btn btn-primary btn-large">Découvrir nos créations</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Réassurance -->
+    <section class="reassurance">
+        <div class="container">
+            <div class="reassurance-grid">
+                <div class="reassurance-item">
+                    <div class="reassurance-icon">🚚</div>
+                    <h3>Livraison rapide</h3>
+                    <p>Nous livrons dans toute la Côte d'Ivoire</p>
+                </div>
+                <div class="reassurance-item">
+                    <div class="reassurance-icon">✨</div>
+                    <h3>Qualité garantie</h3>
+                    <p>Perles sélectionnées avec soin</p>
+                </div>
+                <div class="reassurance-item">
+                    <div class="reassurance-icon">💳</div>
+                    <h3>Paiement flexible</h3>
+                    <p>À la livraison selon disponibilité</p>
+                </div>
+                <div class="reassurance-item">
+                    <div class="reassurance-icon">↩️</div>
+                    <h3>Retour possible</h3>
+                    <p>Échange ou remboursement si défectueux</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Produits -->
+    <section class="products" id="produits">
+        <div class="container">
+            <h2 class="section-title">Nos Créations</h2>
+            <p class="section-subtitle">Chaque pièce est unique et confectionnée avec amour</p>
+            
+            <!-- Filtres et Recherche -->
+            <div class="products-controls">
+                <div class="filter-buttons" role="tablist">
+                    <button class="filter-btn active" data-category="all">Tous</button>
+                    <button class="filter-btn" data-category="bracelets">Bracelets</button>
+                    <button class="filter-btn" data-category="colliers">Colliers</button>
+                    <button class="filter-btn" data-category="ensembles">Ensembles</button>
+                </div>
+                <div class="search-box">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Rechercher un produit..."
+                        aria-label="Rechercher un produit"
+                    >
+                </div>
+            </div>
+
+            <!-- Grille de produits (injectée par JS) -->
+            <div class="products-grid" id="products-grid" role="list">
+                <!-- Les produits seront injectés ici par JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Témoignages -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Ce que disent nos clientes</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "J'ai reçu mon bracelet il y a une semaine et je l'adore ! La qualité 
+                        est excellente et il est exactement comme sur les photos. Je recommande à 100% !"
+                    </p>
+                    <p class="testimonial-author">- Marie K.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "Service client au top et livraison rapide. Mon collier est magnifique, 
+                        je reçois des compliments à chaque fois que je le porte !"
+                    </p>
+                    <p class="testimonial-author">- Fatou D.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "Commande facile via WhatsApp, communication très agréable. L'ensemble 
+                        est parfait pour une soirée, très élégant et bien fini."
+                    </p>
+                    <p class="testimonial-author">- Amina S.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Les Perles de Véro</h3>
+                    <p>Bijoux en perles fantaisie pour femmes</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>WhatsApp : <a href="https://wa.me/225XXXXXXXXXX" target="_blank" rel="noopener">+225 XX XX XX XX XX</a></p>
+                    <p>Email : contact@lesperlesdevero.ci</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Suivez-nous</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook" class="social-link">Facebook</a>
+                        <a href="#" aria-label="Instagram" class="social-link">Instagram</a>
+                        <a href="#" aria-label="TikTok" class="social-link">TikTok</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Les Perles de Véro. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modale Produit -->
+    <div class="modal" id="product-modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Fermer la modale">&times;</button>
+            <div class="modal-body" id="modal-body">
+                <!-- Contenu injecté par JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
