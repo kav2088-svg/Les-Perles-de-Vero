@@ -4,91 +4,101 @@
 const WHATSAPP_NUMBER = "225XXXXXXXXXX"; // À remplacer par le vrai numéro
 
 // ========================================
-// DONNÉES PRODUITS
+// DONNÉES PRODUITS (selon la maquette)
 // ========================================
-const products = [
-    // BRACELETS
-    {
-        id: 1,
-        name: "Aurore",
-        category: "bracelets",
-        price: 5000,
-        description: "Bracelet élégant en perles nacrées et dorées. Parfait pour un style quotidien raffiné.",
-        image: "assets/bracelet-aurore.jpg"
-    },
-    {
-        id: 2,
-        name: "Naya",
-        category: "bracelets",
-        price: 8000,
-        description: "Bracelet moderne aux perles colorées. Une touche de couleur pour égayer votre tenue.",
-        image: "assets/bracelet-naya.jpg"
-    },
-    {
-        id: 3,
-        name: "Perle d'Or",
-        category: "bracelets",
-        price: 12000,
-        description: "Bracelet luxueux en perles dorées. Idéal pour les occasions spéciales et soirées.",
-        image: "assets/bracelet-perle-dor.jpg"
-    },
-    // COLLIERS
-    {
-        id: 4,
-        name: "Sophia",
-        category: "colliers",
-        price: 10000,
-        description: "Collier délicat en perles blanches. Un classique intemporel qui s'associe à toutes vos tenues.",
-        image: "assets/collier-sophia.jpg"
-    },
-    {
-        id: 5,
-        name: "Élégance Rose",
-        category: "colliers",
-        price: 15000,
-        description: "Collier raffiné aux perles roses et dorées. Un bijou qui sublime votre décolleté avec grâce.",
-        image: "assets/collier-elegance-rose.jpg"
-    },
-    {
-        id: 6,
-        name: "Reine des Perles",
-        category: "colliers",
-        price: 18000,
-        description: "Collier somptueux en perles multicolores. Une pièce unique qui fait sensation.",
-        image: "assets/collier-reine.jpg"
-    },
-    // ENSEMBLES
-    {
-        id: 7,
-        name: "Harmonie",
-        category: "ensembles",
-        price: 20000,
-        description: "Ensemble complet bracelet et collier assortis. Cohérence et élégance pour un look parfait.",
-        image: "assets/ensemble-harmonie.jpg"
-    },
-    {
-        id: 8,
-        name: "Prestige",
-        category: "ensembles",
-        price: 25000,
-        description: "Ensemble luxueux en perles dorées et nacrées. Pour les grandes occasions, brillez de tous vos feux.",
-        image: "assets/ensemble-prestige.jpg"
-    },
-    {
-        id: 9,
-        name: "Collection Complète",
-        category: "ensembles",
-        price: 35000,
-        description: "Ensemble complet bracelet, collier et boucles d'oreilles. Le must-have pour une tenue parfaite.",
-        image: "assets/ensemble-complet.jpg"
-    }
-];
+const products = {
+    colliers: [
+        {
+            id: 1,
+            name: "Perle de Tahiti",
+            price: 120,
+            currency: "€",
+            description: "Élégance noire profonde avec reflets verts",
+            image: "assets/perle-tahiti.jpg",
+            badge: "Nouveau"
+        },
+        {
+            id: 2,
+            name: "Collier Akoya",
+            price: 250,
+            currency: "€",
+            description: "Le classique blanc intemporel",
+            image: "assets/collier-akoya.jpg",
+            badge: null
+        },
+        {
+            id: 3,
+            name: "Pendentif Baroque",
+            price: 90,
+            currency: "€",
+            description: "Forme unique et organique",
+            image: "assets/pendentif-baroque.jpg",
+            badge: null
+        }
+    ],
+    boucles: [
+        {
+            id: 4,
+            name: "Puces Douceur",
+            price: 45,
+            currency: "€",
+            description: "Discrétion absolue",
+            image: "assets/puces-douceur.jpg",
+            badge: null
+        },
+        {
+            id: 5,
+            name: "Gouttes d'Or",
+            price: 180,
+            currency: "€",
+            description: "Or 18k et perles",
+            image: "assets/gouttes-or.jpg",
+            badge: null
+        },
+        {
+            id: 6,
+            name: "Créoles Perle",
+            price: 65,
+            currency: "€",
+            description: "Modernité affirmée",
+            image: "assets/creoles-perle.jpg",
+            badge: null
+        },
+        {
+            id: 7,
+            name: "Ligne Pure",
+            price: 85,
+            currency: "€",
+            description: "Minimalisme vertical",
+            image: "assets/ligne-pure.jpg",
+            badge: null
+        }
+    ],
+    bracelets: [
+        {
+            id: 8,
+            name: "Bracelet Manchette",
+            price: 140,
+            currency: "€",
+            description: "Un design audacieux pour les soirées",
+            image: "assets/bracelet-manchette.jpg",
+            badge: null
+        },
+        {
+            id: 9,
+            name: "Chaîne Délicate",
+            price: 55,
+            currency: "€",
+            description: "Finesse et légèreté au quotidien",
+            image: "assets/chaine-delicate.jpg",
+            badge: null
+        }
+    ]
+};
 
 // ========================================
 // ÉTAT GLOBAL
 // ========================================
-let currentCategory = "all";
-let currentSearch = "";
 let currentProduct = null;
 let currentQuantity = 1;
 
@@ -97,10 +107,10 @@ let currentQuantity = 1;
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
-    initFilters();
-    initSearch();
+    initCarousel();
     initModal();
     renderProducts();
+    initWhatsAppLinks();
 });
 
 // ========================================
@@ -111,7 +121,6 @@ function initNavigation() {
     const navList = document.querySelector('.nav-list');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    // Toggle menu mobile
     if (menuToggle) {
         menuToggle.addEventListener('click', () => {
             const isActive = navList.classList.toggle('active');
@@ -120,7 +129,6 @@ function initNavigation() {
         });
     }
 
-    // Scroll doux pour les ancres
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -137,7 +145,6 @@ function initNavigation() {
                 });
             }
 
-            // Fermer le menu mobile si ouvert
             if (navList.classList.contains('active')) {
                 navList.classList.remove('active');
                 menuToggle.classList.remove('active');
@@ -145,48 +152,23 @@ function initNavigation() {
             }
         });
     });
-
-    // Header sticky - ajout d'une ombre au scroll
-    const header = document.querySelector('.header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-        } else {
-            header.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.05)';
-        }
-    });
 }
 
 // ========================================
-// FILTRES PAR CATÉGORIE
+// CAROUSEL BOUCLES
 // ========================================
-function initFilters() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Retirer la classe active de tous les boutons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            // Ajouter la classe active au bouton cliqué
-            button.classList.add('active');
-            // Mettre à jour la catégorie courante
-            currentCategory = button.getAttribute('data-category');
-            // Re-rendre les produits
-            renderProducts();
+function initCarousel() {
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    const carousel = document.querySelector('.products-carousel');
+
+    if (prevBtn && nextBtn && carousel) {
+        prevBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: -300, behavior: 'smooth' });
         });
-    });
-}
 
-// ========================================
-// RECHERCHE
-// ========================================
-function initSearch() {
-    const searchInput = document.getElementById('search-input');
-    
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            currentSearch = e.target.value.toLowerCase().trim();
-            renderProducts();
+        nextBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: 300, behavior: 'smooth' });
         });
     }
 }
@@ -195,82 +177,74 @@ function initSearch() {
 // RENDU DES PRODUITS
 // ========================================
 function renderProducts() {
-    const productsGrid = document.getElementById('products-grid');
-    if (!productsGrid) return;
+    renderCategory('colliers', 'colliers-grid');
+    renderCategory('boucles', 'boucles-grid');
+    renderCategory('bracelets', 'bracelets-grid');
+}
 
-    // Filtrer les produits
-    const filteredProducts = products.filter(product => {
-        const matchesCategory = currentCategory === "all" || product.category === currentCategory;
-        const matchesSearch = currentSearch === "" || 
-            product.name.toLowerCase().includes(currentSearch) ||
-            product.description.toLowerCase().includes(currentSearch);
-        return matchesCategory && matchesSearch;
-    });
+function renderCategory(category, gridId) {
+    const grid = document.getElementById(gridId);
+    if (!grid || !products[category]) return;
 
-    // Afficher un message si aucun produit trouvé
-    if (filteredProducts.length === 0) {
-        productsGrid.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
-                <p style="font-size: 1.25rem; color: #666;">Aucun produit trouvé.</p>
-                <p style="color: #999; margin-top: 0.5rem;">Essayez une autre recherche ou une autre catégorie.</p>
+    const categoryProducts = products[category];
+    
+    grid.innerHTML = categoryProducts.map(product => `
+        <div class="product-card" data-product-id="${product.id}">
+            <div class="product-image-wrapper">
+                <img src="${product.image}" alt="${escapeHtml(product.name)}" class="product-image" onerror="this.style.background='linear-gradient(135deg, #E8A8A0, #d4af37)'">
+                ${product.badge ? `<span class="product-badge">${escapeHtml(product.badge)}</span>` : ''}
             </div>
-        `;
-        return;
-    }
-
-    // Générer le HTML des produits
-    productsGrid.innerHTML = filteredProducts.map(product => `
-        <div class="product-card" role="listitem" data-product-id="${product.id}">
-            <div class="product-image">
-                <span>💎</span>
-            </div>
-            <div class="product-badge">${getCategoryLabel(product.category)}</div>
             <div class="product-info">
                 <h3 class="product-name">${escapeHtml(product.name)}</h3>
+                <div class="product-price">${product.currency}${product.price}</div>
                 <p class="product-description">${escapeHtml(product.description)}</p>
-                <div class="product-price">${formatPrice(product.price)} FCFA</div>
-                <button class="btn btn-primary btn-whatsapp" data-product-id="${product.id}">
-                    💬 Commander sur WhatsApp
+                <button class="btn-whatsapp" data-product-id="${product.id}">
+                    Commander via WhatsApp
                 </button>
             </div>
         </div>
     `).join('');
 
-    // Ajouter les événements aux cartes et boutons
-    const productCards = productsGrid.querySelectorAll('.product-card');
+    // Ajouter les événements
+    const productCards = grid.querySelectorAll('.product-card');
     productCards.forEach(card => {
+        const productId = parseInt(card.getAttribute('data-product-id'));
+        const product = findProductById(productId);
+        
         card.addEventListener('click', (e) => {
-            // Ne pas ouvrir la modale si on clique sur le bouton WhatsApp
-            if (e.target.closest('.btn-whatsapp')) {
-                return;
+            if (!e.target.closest('.btn-whatsapp')) {
+                openModal(productId);
             }
-            const productId = parseInt(card.getAttribute('data-product-id'));
-            openModal(productId);
         });
-    });
 
-    const whatsappButtons = productsGrid.querySelectorAll('.btn-whatsapp');
-    whatsappButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const productId = parseInt(button.getAttribute('data-product-id'));
-            const product = products.find(p => p.id === productId);
-            if (product) {
-                openWhatsApp(product, 1);
-            }
-        });
+        const whatsappBtn = card.querySelector('.btn-whatsapp');
+        if (whatsappBtn) {
+            whatsappBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (product) {
+                    openWhatsApp(product, 1);
+                }
+            });
+        }
     });
 }
 
+function findProductById(id) {
+    for (const category in products) {
+        const found = products[category].find(p => p.id === id);
+        if (found) return found;
+    }
+    return null;
+}
+
 // ========================================
-// MODALE PRODUIT
+// MODALE
 // ========================================
 function initModal() {
     const modal = document.getElementById('product-modal');
     const modalClose = document.querySelector('.modal-close');
     const modalOverlay = document.querySelector('.modal-overlay');
 
-    // Fermer la modale
     function closeModal() {
         if (modal) {
             modal.classList.remove('active');
@@ -287,44 +261,15 @@ function initModal() {
         modalOverlay.addEventListener('click', closeModal);
     }
 
-    // Fermer avec la touche Escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
             closeModal();
         }
     });
-
-    // Initialiser les contrôles de quantité
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('quantity-btn')) {
-            const action = e.target.getAttribute('data-action');
-            if (action === 'decrease' && currentQuantity > 1) {
-                currentQuantity--;
-                updateQuantityDisplay();
-            } else if (action === 'increase') {
-                currentQuantity++;
-                updateQuantityDisplay();
-            }
-        }
-    });
-
-    // Gérer l'input de quantité
-    const quantityInput = document.getElementById('quantity-input');
-    if (quantityInput) {
-        quantityInput.addEventListener('change', (e) => {
-            const value = parseInt(e.target.value);
-            if (value > 0) {
-                currentQuantity = value;
-            } else {
-                currentQuantity = 1;
-                e.target.value = 1;
-            }
-        });
-    }
 }
 
 function openModal(productId) {
-    const product = products.find(p => p.id === productId);
+    const product = findProductById(productId);
     if (!product) return;
 
     currentProduct = product;
@@ -335,35 +280,32 @@ function openModal(productId) {
 
     if (!modal || !modalBody) return;
 
-    // Générer le contenu de la modale
     modalBody.innerHTML = `
-        <div class="modal-product-image">
-            <span style="font-size: 5rem;">💎</span>
+        <div class="product-image-wrapper">
+            <img src="${product.image}" alt="${escapeHtml(product.name)}" class="product-image" style="height: 300px;">
         </div>
-        <h2 class="modal-product-name">${escapeHtml(product.name)}</h2>
-        <div class="modal-product-price">${formatPrice(product.price)} FCFA</div>
-        <p class="modal-product-description">${escapeHtml(product.description)}</p>
-        <div class="modal-quantity">
-            <label for="quantity-input">Quantité :</label>
-            <div class="quantity-controls">
-                <button class="quantity-btn" data-action="decrease" aria-label="Diminuer la quantité">−</button>
-                <input 
-                    type="number" 
-                    id="quantity-input" 
-                    class="quantity-input" 
-                    value="1" 
-                    min="1"
-                    aria-label="Quantité"
-                >
-                <button class="quantity-btn" data-action="increase" aria-label="Augmenter la quantité">+</button>
+        <div style="padding: var(--spacing-lg);">
+            <h2 style="font-size: var(--font-size-2xl); font-weight: 600; margin-bottom: var(--spacing-sm);">${escapeHtml(product.name)}</h2>
+            <div style="font-size: var(--font-size-2xl); font-weight: 700; color: var(--color-text); margin-bottom: var(--spacing-md);">
+                ${product.currency}${product.price}
             </div>
+            <p style="font-size: var(--font-size-base); color: var(--color-text-light); margin-bottom: var(--spacing-lg); line-height: 1.8;">
+                ${escapeHtml(product.description)}
+            </p>
+            <div style="margin-bottom: var(--spacing-lg);">
+                <label style="display: block; font-weight: 500; margin-bottom: var(--spacing-sm);">Quantité :</label>
+                <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+                    <button class="quantity-btn" data-action="decrease" style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--color-beige-light); border: 2px solid var(--color-border);">−</button>
+                    <input type="number" id="quantity-input" value="1" min="1" style="width: 60px; padding: var(--spacing-sm); border: 2px solid var(--color-border); border-radius: var(--radius-md); text-align: center; font-size: var(--font-size-lg); font-weight: 600;">
+                    <button class="quantity-btn" data-action="increase" style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--color-beige-light); border: 2px solid var(--color-border);">+</button>
+                </div>
+            </div>
+            <button class="btn-whatsapp" id="modal-whatsapp-btn" style="width: 100%;">
+                Commander via WhatsApp
+            </button>
         </div>
-        <button class="btn btn-primary btn-whatsapp btn-large" id="modal-whatsapp-btn">
-            💬 Commander sur WhatsApp
-        </button>
     `;
 
-    // Ajouter l'événement au bouton WhatsApp de la modale
     const whatsappBtn = document.getElementById('modal-whatsapp-btn');
     if (whatsappBtn) {
         whatsappBtn.addEventListener('click', () => {
@@ -371,37 +313,58 @@ function openModal(productId) {
         });
     }
 
-    // Afficher la modale
+    const quantityInput = document.getElementById('quantity-input');
+    if (quantityInput) {
+        quantityInput.addEventListener('change', (e) => {
+            const value = parseInt(e.target.value);
+            currentQuantity = value > 0 ? value : 1;
+            e.target.value = currentQuantity;
+        });
+    }
+
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('quantity-btn')) {
+            const action = e.target.getAttribute('data-action');
+            if (action === 'decrease' && currentQuantity > 1) {
+                currentQuantity--;
+            } else if (action === 'increase') {
+                currentQuantity++;
+            }
+            if (quantityInput) quantityInput.value = currentQuantity;
+        }
+    }, { once: false });
+
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
-
-    // Mettre à jour l'affichage de la quantité
-    updateQuantityDisplay();
-}
-
-function updateQuantityDisplay() {
-    const quantityInput = document.getElementById('quantity-input');
-    if (quantityInput) {
-        quantityInput.value = currentQuantity;
-    }
 }
 
 // ========================================
-// INTÉGRATION WHATSAPP
+// WHATSAPP
 // ========================================
+function initWhatsAppLinks() {
+    const whatsappLinks = document.querySelectorAll('a[href="#whatsapp"]');
+    whatsappLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const message = "Bonjour ! 👋\n\nJe souhaite obtenir plus d'informations sur vos bijoux en perles.\n\nMerci ! 😊";
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        });
+    });
+}
+
 function openWhatsApp(product, quantity = 1) {
     const totalPrice = product.price * quantity;
     
-    // Construire le message
     const message = `Bonjour ! 👋
 
 Je souhaite commander :
 • Produit : ${product.name}
-• Catégorie : ${getCategoryLabel(product.category)}
-• Prix unitaire : ${formatPrice(product.price)} FCFA
+• Prix unitaire : ${product.currency}${product.price}
 • Quantité : ${quantity}
-• Prix total : ${formatPrice(totalPrice)} FCFA
+• Prix total : ${product.currency}${totalPrice}
 
 Mes informations :
 • Nom : 
@@ -411,21 +374,15 @@ Mes informations :
 
 Merci ! 😊`;
 
-    // Encoder le message pour l'URL
     const encodedMessage = encodeURIComponent(message);
-    
-    // Construire l'URL WhatsApp
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
     
-    // Ouvrir WhatsApp (web ou app)
     try {
         window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     } catch (error) {
-        // Fallback : redirection directe
         window.location.href = whatsappUrl;
     }
 
-    // Fermer la modale si elle est ouverte
     const modal = document.getElementById('product-modal');
     if (modal && modal.classList.contains('active')) {
         modal.classList.remove('active');
@@ -437,19 +394,6 @@ Merci ! 😊`;
 // ========================================
 // UTILITAIRES
 // ========================================
-function getCategoryLabel(category) {
-    const labels = {
-        'bracelets': 'Bracelet',
-        'colliers': 'Collier',
-        'ensembles': 'Ensemble'
-    };
-    return labels[category] || category;
-}
-
-function formatPrice(price) {
-    return new Intl.NumberFormat('fr-FR').format(price);
-}
-
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
