@@ -4,97 +4,46 @@
 const WHATSAPP_NUMBER = "225XXXXXXXXXX"; // À remplacer par le vrai numéro
 
 // ========================================
-// DONNÉES PRODUITS (selon la maquette)
+// DONNÉES PRODUITS (Les Favoris du Moment)
 // ========================================
-const products = {
-    colliers: [
-        {
-            id: 1,
-            name: "Perle de Tahiti",
-            price: 120,
-            currency: "€",
-            description: "Élégance noire profonde avec reflets verts",
-            image: "assets/perle-tahiti.jpg",
-            badge: "Nouveau"
-        },
-        {
-            id: 2,
-            name: "Collier Akoya",
-            price: 250,
-            currency: "€",
-            description: "Le classique blanc intemporel",
-            image: "assets/collier-akoya.jpg",
-            badge: null
-        },
-        {
-            id: 3,
-            name: "Pendentif Baroque",
-            price: 90,
-            currency: "€",
-            description: "Forme unique et organique",
-            image: "assets/pendentif-baroque.jpg",
-            badge: null
-        }
-    ],
-    boucles: [
-        {
-            id: 4,
-            name: "Puces Douceur",
-            price: 45,
-            currency: "€",
-            description: "Discrétion absolue",
-            image: "assets/puces-douceur.jpg",
-            badge: null
-        },
-        {
-            id: 5,
-            name: "Gouttes d'Or",
-            price: 180,
-            currency: "€",
-            description: "Or 18k et perles",
-            image: "assets/gouttes-or.jpg",
-            badge: null
-        },
-        {
-            id: 6,
-            name: "Créoles Perle",
-            price: 65,
-            currency: "€",
-            description: "Modernité affirmée",
-            image: "assets/creoles-perle.jpg",
-            badge: null
-        },
-        {
-            id: 7,
-            name: "Ligne Pure",
-            price: 85,
-            currency: "€",
-            description: "Minimalisme vertical",
-            image: "assets/ligne-pure.jpg",
-            badge: null
-        }
-    ],
-    bracelets: [
-        {
-            id: 8,
-            name: "Bracelet Manchette",
-            price: 140,
-            currency: "€",
-            description: "Un design audacieux pour les soirées",
-            image: "assets/bracelet-manchette.jpg",
-            badge: null
-        },
-        {
-            id: 9,
-            name: "Chaîne Délicate",
-            price: 55,
-            currency: "€",
-            description: "Finesse et légèreté au quotidien",
-            image: "assets/chaine-delicate.jpg",
-            badge: null
-        }
-    ]
-};
+const favorites = [
+    {
+        id: 1,
+        name: "Reine de Saba",
+        price: 55,
+        currency: "€",
+        description: "Collier majestueux en perles dorées et noires, inspiré des royautés éthiopiennes.",
+        image: "assets/reine-saba.jpg",
+        badge: { text: "En stock", type: "stock" }
+    },
+    {
+        id: 2,
+        name: "Boucles Peulh",
+        price: 25,
+        currency: "€",
+        description: "Grandes boucles d'oreilles circulaires aux motifs géométriques vibrants.",
+        image: "assets/boucles-peulh.jpg",
+        badge: null
+    },
+    {
+        id: 3,
+        name: "Set Zulu",
+        price: 35,
+        currency: "€",
+        description: "Ensemble de 3 bracelets rigides aux couleurs chaudes de la terre.",
+        image: "assets/set-zulu.jpg",
+        badge: { text: "Populaire", type: "popular" }
+    },
+    {
+        id: 4,
+        name: "Perles des Mers",
+        price: 40,
+        currency: "€",
+        description: "Collier délicat mélangeant perles de verre bleu nuit et accents argentés.",
+        image: "assets/perles-mers.jpg",
+        badge: null
+    }
+];
 
 // ========================================
 // ÉTAT GLOBAL
@@ -107,10 +56,10 @@ let currentQuantity = 1;
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
-    initCarousel();
     initModal();
-    renderProducts();
+    renderFavorites();
     initWhatsAppLinks();
+    initCategoryCards();
 });
 
 // ========================================
@@ -120,6 +69,7 @@ function initNavigation() {
     const menuToggle = document.querySelector('.menu-toggle');
     const navList = document.querySelector('.nav-list');
     const navLinks = document.querySelectorAll('.nav-link');
+    const contactBtn = document.querySelector('.btn-contact-header');
 
     if (menuToggle) {
         menuToggle.addEventListener('click', () => {
@@ -152,54 +102,56 @@ function initNavigation() {
             }
         });
     });
-}
 
-// ========================================
-// CAROUSEL BOUCLES
-// ========================================
-function initCarousel() {
-    const prevBtn = document.querySelector('.carousel-btn.prev');
-    const nextBtn = document.querySelector('.carousel-btn.next');
-    const carousel = document.querySelector('.products-carousel');
-
-    if (prevBtn && nextBtn && carousel) {
-        prevBtn.addEventListener('click', () => {
-            carousel.scrollBy({ left: -300, behavior: 'smooth' });
-        });
-
-        nextBtn.addEventListener('click', () => {
-            carousel.scrollBy({ left: 300, behavior: 'smooth' });
+    if (contactBtn) {
+        contactBtn.addEventListener('click', () => {
+            openWhatsAppGeneral();
         });
     }
 }
 
 // ========================================
-// RENDU DES PRODUITS
+// CATÉGORIES
 // ========================================
-function renderProducts() {
-    renderCategory('colliers', 'colliers-grid');
-    renderCategory('boucles', 'boucles-grid');
-    renderCategory('bracelets', 'bracelets-grid');
+function initCategoryCards() {
+    const categoryCards = document.querySelectorAll('.category-card');
+    categoryCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const category = card.getAttribute('data-category');
+            // Scroll vers la section collection
+            const collectionSection = document.querySelector('#collection');
+            if (collectionSection) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = collectionSection.offsetTop - headerHeight;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 }
 
-function renderCategory(category, gridId) {
-    const grid = document.getElementById(gridId);
-    if (!grid || !products[category]) return;
+// ========================================
+// RENDU DES FAVORIS
+// ========================================
+function renderFavorites() {
+    const grid = document.getElementById('favorites-grid');
+    if (!grid) return;
 
-    const categoryProducts = products[category];
-    
-    grid.innerHTML = categoryProducts.map(product => `
+    grid.innerHTML = favorites.map(product => `
         <div class="product-card" data-product-id="${product.id}">
             <div class="product-image-wrapper">
                 <img src="${product.image}" alt="${escapeHtml(product.name)}" class="product-image" onerror="this.style.background='linear-gradient(135deg, #E8A8A0, #d4af37)'">
-                ${product.badge ? `<span class="product-badge">${escapeHtml(product.badge)}</span>` : ''}
+                ${product.badge ? `<span class="product-badge badge-${product.badge.type}">${escapeHtml(product.badge.text)}</span>` : ''}
             </div>
             <div class="product-info">
                 <h3 class="product-name">${escapeHtml(product.name)}</h3>
                 <div class="product-price">${product.currency}${product.price}</div>
                 <p class="product-description">${escapeHtml(product.description)}</p>
                 <button class="btn-whatsapp" data-product-id="${product.id}">
-                    Commander via WhatsApp
+                    <span>🛒</span>
+                    <span>Acheter sur WhatsApp</span>
                 </button>
             </div>
         </div>
@@ -209,7 +161,7 @@ function renderCategory(category, gridId) {
     const productCards = grid.querySelectorAll('.product-card');
     productCards.forEach(card => {
         const productId = parseInt(card.getAttribute('data-product-id'));
-        const product = findProductById(productId);
+        const product = favorites.find(p => p.id === productId);
         
         card.addEventListener('click', (e) => {
             if (!e.target.closest('.btn-whatsapp')) {
@@ -227,14 +179,6 @@ function renderCategory(category, gridId) {
             });
         }
     });
-}
-
-function findProductById(id) {
-    for (const category in products) {
-        const found = products[category].find(p => p.id === id);
-        if (found) return found;
-    }
-    return null;
 }
 
 // ========================================
@@ -269,7 +213,7 @@ function initModal() {
 }
 
 function openModal(productId) {
-    const product = findProductById(productId);
+    const product = favorites.find(p => p.id === productId);
     if (!product) return;
 
     currentProduct = product;
@@ -283,6 +227,7 @@ function openModal(productId) {
     modalBody.innerHTML = `
         <div class="product-image-wrapper">
             <img src="${product.image}" alt="${escapeHtml(product.name)}" class="product-image" style="height: 300px;">
+            ${product.badge ? `<span class="product-badge badge-${product.badge.type}">${escapeHtml(product.badge.text)}</span>` : ''}
         </div>
         <div style="padding: var(--spacing-lg);">
             <h2 style="font-size: var(--font-size-2xl); font-weight: 600; margin-bottom: var(--spacing-sm);">${escapeHtml(product.name)}</h2>
@@ -295,13 +240,14 @@ function openModal(productId) {
             <div style="margin-bottom: var(--spacing-lg);">
                 <label style="display: block; font-weight: 500; margin-bottom: var(--spacing-sm);">Quantité :</label>
                 <div style="display: flex; align-items: center; gap: var(--spacing-md);">
-                    <button class="quantity-btn" data-action="decrease" style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--color-beige-light); border: 2px solid var(--color-border);">−</button>
-                    <input type="number" id="quantity-input" value="1" min="1" style="width: 60px; padding: var(--spacing-sm); border: 2px solid var(--color-border); border-radius: var(--radius-md); text-align: center; font-size: var(--font-size-lg); font-weight: 600;">
-                    <button class="quantity-btn" data-action="increase" style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--color-beige-light); border: 2px solid var(--color-border);">+</button>
+                    <button class="quantity-btn" data-action="decrease" style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--color-beige); border: 2px solid var(--color-gray);">−</button>
+                    <input type="number" id="quantity-input" value="1" min="1" style="width: 60px; padding: var(--spacing-sm); border: 2px solid var(--color-gray); border-radius: var(--radius-md); text-align: center; font-size: var(--font-size-lg); font-weight: 600;">
+                    <button class="quantity-btn" data-action="increase" style="width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--color-beige); border: 2px solid var(--color-gray);">+</button>
                 </div>
             </div>
             <button class="btn-whatsapp" id="modal-whatsapp-btn" style="width: 100%;">
-                Commander via WhatsApp
+                <span>🛒</span>
+                <span>Acheter sur WhatsApp</span>
             </button>
         </div>
     `;
@@ -347,12 +293,16 @@ function initWhatsAppLinks() {
     whatsappLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const message = "Bonjour ! 👋\n\nJe souhaite obtenir plus d'informations sur vos bijoux en perles.\n\nMerci ! 😊";
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+            openWhatsAppGeneral();
         });
     });
+}
+
+function openWhatsAppGeneral() {
+    const message = "Bonjour ! 👋\n\nJe souhaite obtenir plus d'informations sur vos bijoux en perles.\n\nMerci ! 😊";
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 }
 
 function openWhatsApp(product, quantity = 1) {
