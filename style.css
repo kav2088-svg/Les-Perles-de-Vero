@@ -228,6 +228,16 @@ ul {
     color: var(--color-yellow);
 }
 
+.logo-img {
+    height: 70px;
+    width: auto;
+    max-width: 300px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+    background: transparent;
+    mix-blend-mode: normal;
+}
+
 .logo h1 {
     font-size: var(--font-size-xl);
     font-weight: 600;
@@ -677,6 +687,15 @@ ul {
 .footer-logo .logo-icon {
     font-size: 1.5rem;
     color: var(--color-yellow);
+}
+
+.footer-logo .logo-img {
+    height: 60px;
+    width: auto;
+    max-width: 250px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+    mix-blend-mode: normal;
 }
 
 .footer-logo h3 {

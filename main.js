@@ -1,7 +1,9 @@
 // ========================================
 // CONFIGURATION
 // ========================================
-const WHATSAPP_NUMBER = "225XXXXXXXXXX"; // À remplacer par le vrai numéro
+// IMPORTANT : Remplacez ce numéro par votre numéro WhatsApp actif (format international sans +)
+// Exemple pour la Côte d'Ivoire : "2250123456789" (sans espaces, sans +)
+const WHATSAPP_NUMBER = "2250103021890"; // ⚠️ REMPLACER PAR VOTRE NUMÉRO ACTIF
 
 // ========================================
 // DONNÉES PRODUITS (Les Favoris du Moment)
@@ -9,11 +11,11 @@ const WHATSAPP_NUMBER = "225XXXXXXXXXX"; // À remplacer par le vrai numéro
 const favorites = [
     {
         id: 1,
-        name: "Reine de Saba",
-        price: 55,
-        currency: "€",
-        description: "Collier majestueux en perles dorées et noires, inspiré des royautés éthiopiennes.",
-        image: "assets/reine-saba.jpg",
+        name: "Reine Abla Pokou",
+        price: 25000,
+        currency: "FCFA",
+        description: "Collier en perles dorées et noires inspiré de la royauté Akan",
+        image: "assets/reine-abla-pokou.jpg",
         badge: { text: "En stock", type: "stock" }
     },
     {
