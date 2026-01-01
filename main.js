@@ -21,8 +21,8 @@ const favorites = [
     {
         id: 2,
         name: "Boucles Peulh",
-        price: 25,
-        currency: "€",
+        price: 7500,
+        currency: "FCFA",
         description: "Grandes boucles d'oreilles circulaires aux motifs géométriques vibrants.",
         image: "assets/boucles-peulh.jpg",
         badge: null
@@ -30,8 +30,8 @@ const favorites = [
     {
         id: 3,
         name: "Set Zulu",
-        price: 35,
-        currency: "€",
+        price: 10000,
+        currency: "FCFA",
         description: "Ensemble de 3 bracelets rigides aux couleurs chaudes de la terre.",
         image: "assets/set-zulu.jpg",
         badge: { text: "Populaire", type: "popular" }
@@ -39,8 +39,8 @@ const favorites = [
     {
         id: 4,
         name: "Perles des Mers",
-        price: 40,
-        currency: "€",
+        price: 22000,
+        currency: "FCFA",
         description: "Collier délicat mélangeant perles de verre bleu nuit et accents argentés.",
         image: "assets/perles-mers.jpg",
         badge: null
